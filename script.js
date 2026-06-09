@@ -265,7 +265,7 @@ function addToSavings(index) {
         // Zwiększenie odłożonej kwoty
         trip.saved = (trip.saved || 0) + amount;
         
-        // NOWA FUNKCJA: Zmiana statusu z "Planowanie" na "W trakcie"
+        // Zmiana statusu z "Planowanie" na "W trakcie"
         if (trip.status === "Planowanie") {
             trip.status = "W trakcie";
         }
