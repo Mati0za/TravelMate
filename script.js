@@ -262,7 +262,15 @@ function addToSavings(index) {
     const amount = parseAmount(amountStr);
     
     if (amount > 0) {
+        // Zwiększenie odłożonej kwoty
         trip.saved = (trip.saved || 0) + amount;
+        
+        // NOWA FUNKCJA: Zmiana statusu z "Planowanie" na "W trakcie"
+        if (trip.status === "Planowanie") {
+            trip.status = "W trakcie";
+        }
+        
+        // Zapisanie zmian (to automatycznie odświeży tabelę i paski postępu)
         saveTrips(trips);
     } else {
         alert("Podaj poprawną kwotę!");
