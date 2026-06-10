@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     //Obsługa formularza kalkulatora
-    
     const form = document.getElementById('tripForm');
     
     //Jeśli formularz istnieje na stronie
@@ -114,7 +113,6 @@ function openModal(element) {
 }
 
 //Obsługa formularza kontaktowego
-
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
@@ -255,22 +253,16 @@ function addToSavings(index) {
     const trips = loadTrips();
     const trip = trips[index];
     
-    //Prompt o kwotę
     const amountStr = prompt(`Ile chcesz odłożyć na wyjazd do: ${trip.city}?`, "100");
     if (!amountStr) return;
 
     const amount = parseAmount(amountStr);
     
     if (amount > 0) {
-        // Zwiększenie odłożonej kwoty
         trip.saved = (trip.saved || 0) + amount;
-        
-        // Zmiana statusu z "Planowanie" na "W trakcie"
         if (trip.status === "Planowanie") {
             trip.status = "W trakcie";
         }
-        
-        // Zapisanie zmian (to automatycznie odświeży tabelę i paski postępu)
         saveTrips(trips);
     } else {
         alert("Podaj poprawną kwotę!");
@@ -315,7 +307,6 @@ function renderPackingList() {
         const li = document.createElement('li');
         li.className = "list-group-item d-flex align-items-center justify-content-between";
         
-        //Przekreślenia jeśli zaznaczone
         const textStyle = item.checked ? 'text-decoration-line-through text-muted' : '';
         const isChecked = item.checked ? 'checked' : '';
 
@@ -390,8 +381,13 @@ if (addTripForm) {
 
         //Pobieranie danych z formularza
         const city = document.getElementById('newCity').value;
-        const dateRaw = document.getElementById('newDate').value; // Data w formacie YYYY-MM-DD
+        const dateRaw = document.getElementById('newDate').value; //YYYY-MM-DD
         const budget = document.getElementById('newBudget').value;
+
+        if (parseFloat(budget) < 0) {
+            alert("Budżet nie może być mniejszy niż 0 PLN!");
+            return;
+        }
 
         //Formatowanie daty
         let dateFormatted = dateRaw;
@@ -417,7 +413,6 @@ if (addTripForm) {
         trips.push(newTrip);
         saveTrips(trips);
 
-        //Przekierowanie do Dashboardu
         window.location.href = 'dashboard.html';
     });
 }
